@@ -15,9 +15,14 @@ class GetAllStudentsService
 
     public function execute(?int $classId = null)
     {
+        $builder = $this->studentModel
+            ->select('students.*, classes.class_name')
+            ->join('classes', 'classes.id = students.class_id', 'left');
+
         if ($classId) {
-            return $this->studentModel->where('class_id', $classId)->findAll();
+            $builder->where('students.class_id', $classId);
         }
-        return $this->studentModel->findAll();
+
+        return $builder->orderBy('students.full_name', 'ASC')->findAll();
     }
 }

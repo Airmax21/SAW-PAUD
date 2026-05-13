@@ -7,26 +7,54 @@
         </div>
     </div>
     <div class="flex-1 px-4 space-y-2">
-        <a class="flex items-center gap-4 px-4 py-3 text-[#7c52aa] hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-full mx-2 transition-all hover:translate-x-2 duration-200" href="#">
-            <span class="material-symbols-outlined">grid_view</span>
+        <?php
+        // Helper untuk menentukan class CSS berdasarkan URL aktif
+        $activeClass = "bg-[#e040a0] text-white shadow-[0_4px_12px_rgba(224,64,160,0.3)] scale-105 spring-bounce";
+        $inactiveClass = "text-[#7c52aa] hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:translate-x-2";
+        ?>
+
+        <!-- Dashboard -->
+        <a class="flex items-center gap-4 px-4 py-3 rounded-full mx-2 transition-all duration-200 <?= url_is('/') ? $activeClass : $inactiveClass ?>"
+            href="<?= base_url('/') ?>">
+            <span class="material-symbols-outlined" style="<?= url_is('/') ? "font-variation-settings: 'FILL' 1;" : "" ?>">grid_view</span>
             <span>Dashboard</span>
         </a>
-        <a class="flex items-center gap-4 px-4 py-3 bg-[#e040a0] text-white rounded-full mx-2 shadow-[0_4px_12px_rgba(224,64,160,0.3)] scale-105 spring-bounce transition-all ease-out" href="#">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">face</span>
+
+        <!-- Siswa -->
+        <a class="flex items-center gap-4 px-4 py-3 rounded-full mx-2 transition-all duration-200 <?= url_is('student*') ? $activeClass : $inactiveClass ?>"
+            href="<?= base_url('student') ?>">
+            <span class="material-symbols-outlined" style="<?= url_is('student*') ? "font-variation-settings: 'FILL' 1;" : "" ?>">face</span>
             <span>Siswa</span>
         </a>
-        <a class="flex items-center gap-4 px-4 py-3 text-[#7c52aa] hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-full mx-2 transition-all hover:translate-x-2 duration-200" href="#">
-            <span class="material-symbols-outlined">category</span>
+
+        <!-- Kelas -->
+        <a class="flex items-center gap-4 px-4 py-3 rounded-full mx-2 transition-all duration-200 <?= url_is('class*') ? $activeClass : $inactiveClass ?>"
+            href="<?= base_url('class') ?>">
+            <span class="material-symbols-outlined" style="<?= url_is('class*') ? "font-variation-settings: 'FILL' 1;" : "" ?>">school</span>
+            <span>Kelas</span>
+        </a>
+
+        <!-- Kriteria -->
+        <a class="flex items-center gap-4 px-4 py-3 rounded-full mx-2 transition-all duration-200 <?= url_is('criteria*') ? $activeClass : $inactiveClass ?>"
+            href="<?= base_url('criteria') ?>">
+            <span class="material-symbols-outlined" style="<?= url_is('criteria*') ? "font-variation-settings: 'FILL' 1;" : "" ?>">category</span>
             <span>Kriteria</span>
         </a>
-        <a class="flex items-center gap-4 px-4 py-3 text-[#7c52aa] hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-full mx-2 transition-all hover:translate-x-2 duration-200" href="#">
-            <span class="material-symbols-outlined">edit_note</span>
+
+        <!-- Penilaian -->
+        <a class="flex items-center gap-4 px-4 py-3 rounded-full mx-2 transition-all duration-200 <?= url_is('evaluation*') ? $activeClass : $inactiveClass ?>"
+            href="<?= base_url('evaluation') ?>">
+            <span class="material-symbols-outlined" style="<?= url_is('evaluation*') ? "font-variation-settings: 'FILL' 1;" : "" ?>">edit_note</span>
             <span>Penilaian</span>
         </a>
-        <a class="flex items-center gap-4 px-4 py-3 text-[#7c52aa] hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-full mx-2 transition-all hover:translate-x-2 duration-200" href="#">
-            <span class="material-symbols-outlined">leaderboard</span>
+
+        <!-- Ranking -->
+        <a class="flex items-center gap-4 px-4 py-3 rounded-full mx-2 transition-all duration-200 <?= url_is('ranking*') ? $activeClass : $inactiveClass ?>"
+            href="<?= base_url('ranking') ?>">
+            <span class="material-symbols-outlined" style="<?= url_is('ranking*') ? "font-variation-settings: 'FILL' 1;" : "" ?>">leaderboard</span>
             <span>Ranking</span>
         </a>
+    </div>
     </div>
     <div class="px-4 mt-8 pb-8 border-t border-purple-50 pt-4">
         <a class="flex items-center gap-4 px-4 py-3 text-[#7c52aa] hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-full mx-2 transition-all hover:translate-x-2 duration-200" href="#">

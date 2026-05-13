@@ -16,3 +16,9 @@ $routes->group('student', function ($routes) {
     $routes->post('update/(:num)', 'Student::update/$1');
     $routes->get('delete/(:num)', 'Student::delete/$1');
 });
+
+$routes->group('class', function ($routes) {
+    $routes->get('/', 'ClassController::index');
+    $routes->post('store', 'ClassController::store');
+    $routes->get('delete/(:num)', 'ClassController::delete/$1');
+});
