@@ -19,8 +19,8 @@ Ikuti langkah-langkah berikut untuk menyiapkan proyek di lokal:
 
 1. **Clone Repositori**
 ```bash
-git clone <url-repository-kamu>
-cd <nama-folder-proyek>
+git clone https://github.com/Airmax21/SAW-PAUD.git
+cd SAW-PAUD
 
 ```
 
