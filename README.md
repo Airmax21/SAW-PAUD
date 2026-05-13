@@ -1,69 +1,137 @@
-# CodeIgniter 4 Application Starter
+# 📘 Dokumentasi Pengembangan CodeIgniter 4
 
-## What is CodeIgniter?
+Dokumentasi ini berisi panduan instalasi, alur kerja pengembangan (*development*), dan standarisasi build untuk aplikasi PAUD.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## 📋 Prasyarat Sistem
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Sebelum memulai, pastikan mesin pengembangan Anda memenuhi spesifikasi berikut:
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+* **PHP:** Versi 8.2 atau lebih tinggi.
+* **Composer:** Versi 2.0 atau lebih tinggi.
+* **Ekstensi PHP:** `intl`, `mbstring`, `json`, `curl`, `sqlite3` atau `mysqli`.
+* **Web Server:** Apache, Nginx, atau gunakan bawaan Spark.
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+---
 
-## Installation & updates
+## 🚀 Instalasi Awal
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+Ikuti langkah-langkah berikut untuk menyiapkan proyek di lokal:
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+1. **Clone Repositori**
+```bash
+git clone <url-repository-kamu>
+cd <nama-folder-proyek>
 
-## Setup
+```
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
 
-## Important Change with index.php
+2. **Instalasi Dependencies**
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+```bash
+   composer install
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+3. **Konfigurasi Environment**
+Salin file contoh environment dan sesuaikan konfigurasinya:
 
-## Repository Management
+```bash
+   cp env .env
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+Buka file `.env` dan pastikan pengaturan berikut aktif:
 
-## Server Requirements
+```env
+   CI_ENVIRONMENT = development
+   app.baseURL = 'http://localhost:8080/'
+   
+   # Jika menggunakan MySQL
+   database.default.hostname = localhost
+   database.default.database = nama_db_paud
+   database.default.username = root
+   database.default.password = 
+   database.default.DBDriver = MySQLi
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+```
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+4. **Migrasi Database & Seeding**
+Jalankan migrasi untuk membuat tabel dan seeder untuk data awal (seperti Tabel Kelas):
+```bash
+php spark migrate
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+```
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+---
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## 🛠️ Alur Kerja Pengembangan (Development)
+
+### Menjalankan Server Lokal
+
+Untuk melihat hasil koding secara *real-time*, jalankan perintah:
+
+```bash
+php spark serve
+
+```
+
+Akses melalui browser di: `http://localhost:8080`
+
+### Perintah Penting (CLI Spark)
+
+| Perintah | Deskripsi |
+| --- | --- |
+| `php spark make:controller <Name>` | Membuat Controller baru |
+| `php spark make:model <Name>` | Membuat Model baru |
+| `php spark make:migration <Name>` | Membuat file migrasi tabel |
+| `php spark migrate:refresh` | Reset dan jalankan ulang semua migrasi |
+| `php spark cache:clear` | Menghapus cache aplikasi |
+
+---
+
+## 🏗️ Panduan Build & Deployment (Production)
+
+Saat aplikasi siap diunggah ke server produksi, ikuti protokol berikut:
+
+### 1. Optimasi Dependensi
+
+Hapus *development tools* agar ukuran aplikasi lebih kecil dan lebih aman:
+
+```bash
+composer install --no-dev --optimize-autoloader
+
+```
+
+### 2. Pengaturan Keamanan Environment
+
+Ubah mode environment di `.env` menjadi **production**:
+
+```env
+CI_ENVIRONMENT = production
+
+```
+
+*Efek: Debug toolbar akan hilang dan pesan error teknis tidak akan tampil ke user.*
+
+### 3. Struktur Folder Server
+
+Sangat disarankan untuk mengarahkan **Document Root** web server ke folder `/public`:
+
+* **Apache:** Pastikan `AllowOverride All` aktif agar `.htaccess` terbaca.
+* **Nginx:** Arahkan `root` ke path `/project/public`.
+
+---
+
+## 📁 Struktur Arsitektur (Service Pattern)
+
+Proyek ini menggunakan **Service Pattern** untuk menjaga kode tetap bersih:
+
+* `app/Controllers`: Menangani request/response.
+* `app/Services`: Tempat logika bisnis utama (Calculation, CRUD logic).
+* `app/Models`: Definisi skema database.
+* `app/Entities`: Representasi objek data tunggal.
+* `app/Views`: Template antarmuka menggunakan Tailwind CSS.
+
+---
+
+> **Note:** Selalu jalankan `php spark migrate` setiap kali ada perubahan skema database dari anggota tim lain.
