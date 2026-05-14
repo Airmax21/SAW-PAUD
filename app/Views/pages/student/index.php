@@ -38,13 +38,26 @@
 <!-- Student Data Grid - Note: overflow-hidden dihapus agar dropdown bisa keluar -->
 <div class="bg-white rounded-xl shadow-sm border border-gray-200">
     <!-- Header Filter Row -->
-    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50 rounded-t-xl">
+    <div class="px-6 py-5 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between bg-gray-50/50 rounded-t-xl gap-4">
         <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
             <span class="material-symbols-outlined text-blue-500">list_alt</span>
             Daftar Anak Didik
         </h3>
-        <div class="flex gap-2">
-            <a href="<?= base_url('student') ?>" class="px-4 py-2 bg-blue-600 text-white text-sm font-bold rounded-full">Semua</a>
+
+        <!-- Filter Kelas Dinamis -->
+        <div class="flex flex-wrap gap-2">
+            <!-- Tombol Semua -->
+            <a href="<?= base_url('student') ?>"
+                class="px-5 py-2 text-sm font-bold rounded-full transition-all <?= empty($selectedClass) ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-200' ?>">
+                Semua
+            </a>
+
+            <?php foreach ($classes as $class) : ?>
+                <a href="<?= base_url('student?class_id=' . $class->id) ?>"
+                    class="px-5 py-2 text-sm font-bold rounded-full transition-all <?= ($selectedClass == $class->id) ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-200' ?>">
+                    <?= $class->class_name ?>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -102,31 +115,22 @@
 </div>
 
 <script>
+    // Fungsi toggle menu yang sudah ada (Cara 2 sebelumnya)
     function toggleMenu(event, id) {
-        event.stopPropagation(); // Mencegah event window.onclick langsung terpicu
-
+        event.stopPropagation();
         const menu = document.getElementById('menu-' + id);
         const card = menu.closest('.student-card');
         const allMenus = document.querySelectorAll('[id^="menu-"]');
         const allCards = document.querySelectorAll('.student-card');
 
-        // Tutup semua menu lain dan reset z-index mereka
         allMenus.forEach(m => {
-            if (m !== menu) {
-                m.classList.add('hidden');
-            }
+            if (m !== menu) m.classList.add('hidden');
         });
-
         allCards.forEach(c => {
-            if (c !== card) {
-                c.style.zIndex = "auto";
-            }
+            if (c !== card) c.style.zIndex = "auto";
         });
 
-        // Toggle menu yang diklik
         const isHidden = menu.classList.toggle('hidden');
-
-        // Jika menu terbuka, naikkan z-index kartu ini agar berada di atas kartu sekitarnya
         if (!isHidden) {
             card.style.zIndex = "50";
         } else {
@@ -134,15 +138,47 @@
         }
     }
 
-    // Menutup menu jika klik di luar area menu
+    // --- LOGIKA SEARCH DIMULAI DISINI ---
+    const searchInput = document.getElementById('studentSearch');
+
+    searchInput.addEventListener('input', function() {
+        const filter = this.value.toLowerCase();
+        const cards = document.querySelectorAll('.student-card');
+        let hasResults = false;
+
+        cards.forEach(card => {
+            // Ambil nama dari tag h4 di dalam kartu
+            const name = card.querySelector('h4').textContent.toLowerCase();
+
+            if (name.includes(filter)) {
+                card.style.display = ""; // Tampilkan
+                hasResults = true;
+            } else {
+                card.style.display = "none"; // Sembunyikan
+            }
+        });
+
+        // Menampilkan pesan jika tidak ada hasil (opsional)
+        const emptyState = document.getElementById('emptySearchState');
+        if (!hasResults) {
+            if (!emptyState) {
+                const grid = document.querySelector('.grid.grid-cols-1');
+                const msg = document.createElement('div');
+                msg.id = 'emptySearchState';
+                msg.className = 'col-span-full py-10 text-center text-gray-400';
+                msg.innerHTML = `<span class="material-symbols-outlined text-4xl mb-2">search_off</span><p>Nama "${this.value}" tidak ditemukan.</p>`;
+                grid.appendChild(msg);
+            }
+        } else if (emptyState) {
+            emptyState.remove();
+        }
+    });
+    // --- LOGIKA SEARCH SELESAI ---
+
     window.onclick = function(event) {
         if (!event.target.closest('[id^="menu-"]')) {
-            document.querySelectorAll('[id^="menu-"]').forEach(m => {
-                m.classList.add('hidden');
-            });
-            document.querySelectorAll('.student-card').forEach(c => {
-                c.style.zIndex = "auto";
-            });
+            document.querySelectorAll('[id^="menu-"]').forEach(m => m.classList.add('hidden'));
+            document.querySelectorAll('.student-card').forEach(c => c.style.zIndex = "auto");
         }
     }
 </script>

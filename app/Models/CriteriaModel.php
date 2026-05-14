@@ -8,7 +8,7 @@ use App\Entities\Criteria;
 class CriteriaModel extends Model
 {
     protected $table = 'criterias';
-    protected $allowedFields = ['criteria_name', 'weight', 'type'];
+    protected $allowedFields = ['code', 'criteria_name', 'weight', 'type', 'description'];
     protected $useTimestamps = true;
     protected $returnType = Criteria::class;
 }

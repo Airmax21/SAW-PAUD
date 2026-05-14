@@ -30,9 +30,13 @@ class Student extends BaseController
 
     public function index()
     {
+        $selectedClass = $this->request->getVar('class_id');
+
         $data = [
-            'title'    => 'Daftar Siswa',
-            'students' => $this->getAllStudentService->execute(),
+            'title'         => 'Manajemen Siswa',
+            'students'      => $this->getAllStudentService->execute($selectedClass ? (int)$selectedClass : null),
+            'classes'       => $this->classModel->findAll(), // Tambahkan ini
+            'selectedClass' => $selectedClass // Untuk menandai tombol mana yang aktif
         ];
         return view('pages/student/index', $data);
     }
