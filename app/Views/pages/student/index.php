@@ -3,8 +3,8 @@
 <?= $this->section('content') ?>
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
     <div>
-        <h2 class="text-4xl font-headline font-bold text-on-background mb-2">Manajemen Siswa</h2>
-        <p class="text-on-surface-variant font-medium text-lg">Kelola data dan status penilaian anak-anak PAUD.</p>
+        <h2 class="text-4xl font-bold text-gray-900">Manajemen Siswa</h2>
+        <p class="text-gray-500 font-medium mt-1">Kelola data dan status penilaian anak-anak PAUD.</p>
     </div>
     <div class="flex items-center gap-4 w-full md:w-auto">
         <div class="relative w-full md:w-64">

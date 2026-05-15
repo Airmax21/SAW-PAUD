@@ -23,11 +23,16 @@ $routes->group('class', function ($routes) {
     $routes->get('delete/(:num)', 'ClassController::delete/$1');
 });
 
-$routes->group('criteria', function ($routes) {    
+$routes->group('criteria', function ($routes) {
     $routes->get('/', 'Criteria::index');
-    
+
     $routes->post('update', 'Criteria::update');
-    
+
     $routes->post('store', 'Criteria::store');
     $routes->get('delete/(:num)', 'Criteria::delete/$1');
+});
+
+$routes->group('evaluation', function ($routes) {
+    $routes->get('/', 'Evaluation::index');
+    $routes->post('store', 'Evaluation::store');
 });

@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
     <div>
-        <h2 class="text-4xl font-bold text-gray-900 tracking-tight">Manajemen Kelas</h2>
+        <h2 class="text-4xl font-bold text-gray-900">Manajemen Kelas</h2>
         <p class="text-gray-500 font-medium mt-1">Kelola kelompok belajar dan tahun akademik PAUD.</p>
     </div>
 </div>
