@@ -6,7 +6,6 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('ranking', 'Ranking::index');
 
 $routes->group('student', function ($routes) {
     $routes->get('/', 'Student::index');
@@ -35,4 +34,9 @@ $routes->group('criteria', function ($routes) {
 $routes->group('evaluation', function ($routes) {
     $routes->get('/', 'Evaluation::index');
     $routes->post('store', 'Evaluation::store');
+});
+
+$routes->group('ranking', function ($routes) {
+    $routes->get('/', 'Ranking::index');
+    $routes->get('pdf', 'Ranking::exportPdf');
 });
