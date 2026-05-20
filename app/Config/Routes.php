@@ -10,7 +10,7 @@ $routes->post('login', 'Auth::authenticate');
 $routes->get('logout', 'Auth::logout');
 
 $routes->group('', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Home::index');
+    $routes->get('/', 'Dashboard::index');
 
     $routes->group('student', function ($routes) {
         $routes->get('/', 'Student::index');
