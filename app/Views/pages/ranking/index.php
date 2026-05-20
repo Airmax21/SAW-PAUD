@@ -6,7 +6,7 @@
 <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
     <div>
         <h2 class="text-4xl font-bold text-gray-900">Ranking Akhir Semester</h2>
-        <p class="text-outline font-medium text-lg">Berdasarkan perhitungan Simple Additive Weighting (SAW) Periode <?= date('F Y', strtotime($period)) . ($classId ? ' - Kelas Terfilter' : '') ?>.</p>
+        <p class="text-outline font-medium text-lg">Berdasarkan perhitungan Simple Additive Weighting (SAW)</p>
     </div>
 
     <!-- Filter Form & Actions -->

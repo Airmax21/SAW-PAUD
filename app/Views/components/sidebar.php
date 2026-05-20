@@ -6,6 +6,7 @@
             <p class="text-sm text-outline font-medium">PAUD Cerfira</p>
         </div>
     </div>
+
     <div class="flex-1 px-4 space-y-2">
         <?php
         // Helper untuk menentukan class CSS berdasarkan URL aktif
@@ -54,12 +55,33 @@
             <span class="material-symbols-outlined" style="<?= url_is('ranking*') ? "font-variation-settings: 'FILL' 1;" : "" ?>">leaderboard</span>
             <span>Ranking</span>
         </a>
+
+        <!-- Guru / Pengguna (Menu Baru) -->
+        <a class="flex items-center gap-4 px-4 py-3 rounded-full mx-2 transition-all duration-200 <?= url_is('teacher*') ? $activeClass : $inactiveClass ?>"
+            href="<?= base_url('teacher') ?>">
+            <span class="material-symbols-outlined" style="<?= url_is('teacher*') ? "font-variation-settings: 'FILL' 1;" : "" ?>">manage_accounts</span>
+            <span>Guru</span>
+        </a>
     </div>
-    </div>
-    <div class="px-4 mt-8 pb-8 border-t border-purple-50 pt-4">
-        <a class="flex items-center gap-4 px-4 py-3 text-[#7c52aa] hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-full mx-2 transition-all hover:translate-x-2 duration-200" href="#">
-            <span class="material-symbols-outlined">help</span>
-            <span>Bantuan</span>
+
+    <!-- Bagian Info User Login & Logout -->
+    <div class="px-4 border-t border-purple-50 dark:border-gray-800 pt-5 space-y-4">
+        <!-- Info Profil Guru -->
+        <div class="flex items-center gap-3 px-4 py-1">
+            <div class="w-10 h-10 bg-purple-100 dark:bg-purple-950 text-[#7c52aa] rounded-xl flex items-center justify-center font-black text-sm shadow-inner shrink-0">
+                <?= strtoupper(substr(session()->get('teacher_name') ?? 'G', 0, 2)) ?>
+            </div>
+            <div class="min-w-0 flex-1">
+                <p class="font-bold text-gray-800 dark:text-gray-200 text-sm truncate leading-tight"><?= session()->get('teacher_name') ?? 'Guru PAUD' ?></p>
+                <p class="text-xs text-outline font-medium mt-0.5 truncate">@<?= session()->get('username') ?? 'teacher' ?></p>
+            </div>
+        </div>
+
+        <!-- Button Logout -->
+        <a class="flex items-center gap-4 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-full mx-2 transition-all hover:translate-x-2 duration-200 font-bold text-sm"
+            href="<?= base_url('logout') ?>">
+            <span class="material-symbols-outlined text-red-500">logout</span>
+            <span>Keluar Sistem</span>
         </a>
     </div>
 </nav>

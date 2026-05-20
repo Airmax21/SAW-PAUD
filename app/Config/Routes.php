@@ -5,38 +5,51 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('login', 'Auth::login');
+$routes->post('login', 'Auth::authenticate');
+$routes->get('logout', 'Auth::logout');
 
-$routes->group('student', function ($routes) {
-    $routes->get('/', 'Student::index');
-    $routes->get('create', 'Student::create');
-    $routes->post('store', 'Student::store');
-    $routes->get('edit/(:num)', 'Student::edit/$1');
-    $routes->post('update/(:num)', 'Student::update/$1');
-    $routes->get('delete/(:num)', 'Student::delete/$1');
-});
+$routes->group('', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Home::index');
 
-$routes->group('class', function ($routes) {
-    $routes->get('/', 'ClassController::index');
-    $routes->post('store', 'ClassController::store');
-    $routes->get('delete/(:num)', 'ClassController::delete/$1');
-});
+    $routes->group('student', function ($routes) {
+        $routes->get('/', 'Student::index');
+        $routes->get('create', 'Student::create');
+        $routes->post('store', 'Student::store');
+        $routes->get('edit/(:num)', 'Student::edit/$1');
+        $routes->post('update/(:num)', 'Student::update/$1');
+        $routes->get('delete/(:num)', 'Student::delete/$1');
+    });
 
-$routes->group('criteria', function ($routes) {
-    $routes->get('/', 'Criteria::index');
+    $routes->group('class', function ($routes) {
+        $routes->get('/', 'ClassController::index');
+        $routes->post('store', 'ClassController::store');
+        $routes->get('delete/(:num)', 'ClassController::delete/$1');
+    });
 
-    $routes->post('update', 'Criteria::update');
+    $routes->group('criteria', function ($routes) {
+        $routes->get('/', 'Criteria::index');
 
-    $routes->post('store', 'Criteria::store');
-    $routes->get('delete/(:num)', 'Criteria::delete/$1');
-});
+        $routes->post('update', 'Criteria::update');
 
-$routes->group('evaluation', function ($routes) {
-    $routes->get('/', 'Evaluation::index');
-    $routes->post('store', 'Evaluation::store');
-});
+        $routes->post('store', 'Criteria::store');
+        $routes->get('delete/(:num)', 'Criteria::delete/$1');
+    });
 
-$routes->group('ranking', function ($routes) {
-    $routes->get('/', 'Ranking::index');
-    $routes->get('pdf', 'Ranking::exportPdf');
+    $routes->group('evaluation', function ($routes) {
+        $routes->get('/', 'Evaluation::index');
+        $routes->post('store', 'Evaluation::store');
+    });
+
+    $routes->group('ranking', function ($routes) {
+        $routes->get('/', 'Ranking::index');
+        $routes->get('pdf', 'Ranking::exportPdf');
+    });
+
+    $routes->group('teacher', function ($routes) {
+        $routes->get('/', 'Teacher::index');
+        $routes->post('store', 'Teacher::store');
+        $routes->post('update/(:num)', 'Teacher::update/$1');
+        $routes->get('delete/(:num)', 'Teacher::delete/$1');
+    });
 });
