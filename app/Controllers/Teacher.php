@@ -29,6 +29,7 @@ class Teacher extends BaseController
     }
     public function index()
     {
+        // Menampilkan manajemen user/guru
         $data = [
             'title'    => 'Manajemen Guru',
             'teachers' => $this->getAllTeacherService->execute()
@@ -38,6 +39,7 @@ class Teacher extends BaseController
 
     public function store()
     {
+        // Menyimpan user/guru
         $rules = [
             'username' => 'required|alpha_numeric_space|min_length[3]|is_unique[teachers.username]',
             'name'     => 'required|min_length[3]',
@@ -54,6 +56,7 @@ class Teacher extends BaseController
 
     public function update(int $id)
     {
+        // Update user/guru
         $rules = [
             'username' => "required|alpha_numeric_space|min_length[3]|is_unique[teachers.username,id,{$id}]",
             'name'     => 'required|min_length[3]',

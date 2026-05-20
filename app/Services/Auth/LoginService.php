@@ -35,14 +35,4 @@ class LoginService
 
         return true;
     }
-
-    public function logout(): void
-    {
-        $this->session->destroy();
-    }
-
-    public function check(): bool
-    {
-        return $this->session->has('is_logged_in') && $this->session->get('is_logged_in') === true;
-    }
 }

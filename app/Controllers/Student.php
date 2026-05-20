@@ -30,6 +30,7 @@ class Student extends BaseController
 
     public function index()
     {
+        // Menampilkan halaman manajemen siswa
         $selectedClass = $this->request->getVar('class_id');
 
         $data = [
@@ -43,6 +44,7 @@ class Student extends BaseController
 
     public function create()
     {
+        // Menampilkan halaman menambah siswa
         return view('pages/student/form', [
             'title'   => 'Tambah Siswa Baru',
             'student' => new \App\Entities\Student(),
@@ -53,12 +55,14 @@ class Student extends BaseController
 
     public function store()
     {
+        // Menambahkan Siswa
         $rules = [
             'full_name' => 'required|min_length[3]',
             'gender'    => 'required|in_list[L,P]',
             'class_id'  => 'required|is_not_unique[classes.id]',
         ];
 
+        // Validate forms
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -70,6 +74,7 @@ class Student extends BaseController
 
     public function edit($id)
     {
+        // Edit Siswa
         $student = $this->getByIdStudentService->execute($id);
         if (!$student) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 
@@ -83,6 +88,7 @@ class Student extends BaseController
 
     public function update($id)
     {
+        // Update Siswa
         $rules = [
             'full_name' => 'required|min_length[3]',
             'gender'    => 'required|in_list[L,P]',
@@ -100,6 +106,7 @@ class Student extends BaseController
 
     public function delete($id)
     {
+        // Delete Siswa
         $this->deleteStudentService->execute($id);
         return redirect()->to('/student')->with('success', 'Data siswa berhasil dihapus.');
     }

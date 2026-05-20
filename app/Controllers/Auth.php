@@ -29,6 +29,7 @@ class Auth extends BaseController
 
     public function authenticate()
     {
+        // Controller untuk login
         $username = $this->request->getPost('username') ?? '';
         $password = $this->request->getPost('password') ?? '';
 
@@ -41,6 +42,7 @@ class Auth extends BaseController
 
     public function logout()
     {
+        // Controller untuk logout
         $this->logoutService->execute();
         return redirect()->to('login')->with('success', 'Berhasil keluar sistem.');
     }

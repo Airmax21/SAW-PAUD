@@ -21,6 +21,7 @@ class ClassController extends BaseController
 
     public function index()
     {
+        // Menampilkan data kelas
         $data = [
             'title'   => 'Manajemen Kelas',
             'classes' => $this->getAllClassesService->execute()
@@ -30,6 +31,7 @@ class ClassController extends BaseController
 
     public function store()
     {
+        // Untuk menyimpan validate form & menyimpan kelas
         $rules = [
             'class_name'    => 'required|min_length[2]',
             'academic_year' => 'required'
@@ -45,6 +47,7 @@ class ClassController extends BaseController
 
     public function delete($id)
     {
+        // Menghapus kelas
         $this->deleteClassesService->execute($id);
         return redirect()->to('/class')->with('success', 'Kelas berhasil dihapus.');
     }

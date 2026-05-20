@@ -40,6 +40,7 @@ class Criteria extends BaseController
 
     public function store()
     {
+        // Validate form & save criteria
         $rules = [
             'code'          => 'required|is_unique[criterias.code]|max_length[5]',
             'criteria_name' => 'required|min_length[3]',
@@ -80,6 +81,7 @@ class Criteria extends BaseController
 
     public function delete($id)
     {
+        // Menghapus kriteria
         if ($this->deleteCriteriaService->execute($id)) {
             return redirect()->to('/criteria')->with('success', 'Kriteria berhasil dihapus.');
         }

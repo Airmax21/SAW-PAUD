@@ -19,6 +19,7 @@ class Ranking extends BaseController
 
     public function index()
     {
+        // Melakukan perhitungan SAW berdasarkan periode dan kelas
         $period  = $this->request->getGet('period') ?? date('Y-m');
         $classId = $this->request->getGet('class_id');
         $classId = ($classId !== null && $classId !== '') ? (int) $classId : null;
