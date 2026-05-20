@@ -97,12 +97,12 @@
 
                     <!-- Avatar Inisial Teks Dinamis -->
                     <div class="w-16 h-16 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-black text-lg border-2 border-surface shadow-sm shrink-0 group-hover:scale-105 transition-transform">
-                        <?= strtoupper(substr($student->name ?? 'S', 0, 2)) ?>
+                        <?= strtoupper(substr($student->full_name ?? 'S', 0, 2)) ?>
                     </div>
 
                     <div class="flex-1 min-w-0">
-                        <h4 class="text-lg font-headline font-bold text-on-background leading-tight truncate" title="<?= $student->name ?>">
-                            <?= $student->name ?>
+                        <h4 class="text-lg font-headline font-bold text-on-background leading-tight truncate" title="<?= $student->full_name ?>">
+                            <?= $student->full_name ?>
                         </h4>
                         <div class="flex items-center gap-2 mt-1 mb-2">
                             <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-black uppercase rounded-full">
