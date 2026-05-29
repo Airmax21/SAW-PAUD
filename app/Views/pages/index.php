@@ -8,7 +8,7 @@
         <h2 class="text-4xl font-headline font-bold text-on-background mb-2">
             Selamat Datang, <?= session()->get('teacher_name') ?? 'Guru' ?>!
         </h2>
-        <p class="text-on-surface-variant font-medium text-lg">Berikut ringkasan perkembangan dan status penilaian anak-anak PAUD Cerfira.</p>
+        <p class="text-on-surface-variant font-medium text-lg">Berikut ringkasan perkembangan dan status penilaian anak-anak PAUD Betlehem Tebedak.</p>
     </div>
 
     <!-- Filter Pencarian Cepat Nama Siswa di Beranda -->
